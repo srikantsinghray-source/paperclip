@@ -1,430 +1,907 @@
-<p align="center">
-  <img src="doc/assets/banner.jpg" alt="Paperclip is the app people use to manage AI agents for work." width="720" />
-</p>
 
-<p align="center">
-  <a href="#quickstart"><strong>Quickstart</strong></a> &middot;
-  <a href="https://paperclip.ing/docs"><strong>Docs</strong></a> &middot;
-  <a href="https://github.com/paperclipai/paperclip"><strong>GitHub</strong></a> &middot;
-  <a href="https://discord.gg/m4HZY7xNG3"><strong>Discord</strong></a> &middot;
-  <a href="https://x.com/papercliping"><strong>Twitter</strong></a> &middot;
-  <a href="https://paperclip.ing"><strong>Website</strong></a>
-</p>
-
-<p align="center">
-  <a href="https://github.com/paperclipai/paperclip/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue" alt="MIT License" /></a>
-  <a href="https://github.com/paperclipai/paperclip/stargazers"><img src="https://img.shields.io/github/stars/paperclipai/paperclip?style=flat" alt="Stars" /></a>
-  <a href="https://discord.gg/m4HZY7xNG3"><img src="https://img.shields.io/discord/000000000?label=discord" alt="Discord" /></a>
-</p>
-
-<br/>
-
-<div align="center">
-  <video src="https://github.com/user-attachments/assets/773bdfb2-6d1e-4e30-8c5f-3487d5b70c8f" width="600" controls></video>
-</div>
-
-<br/>
-
-# Paperclip is the app people use to manage AI agents for work.
-
-Open-source orchestration for teams of AI agents.
-
-**If OpenClaw is an _employee_, Paperclip is the _company_.**
-
-Paperclip is a Node.js server and React UI that orchestrates a team of AI agents to run a business. Bring your own agents, assign goals, and track work and costs from one dashboard.
-
-It looks like a task manager. Under the hood: org charts, budgets, governance, goal alignment, and agent coordination.
-
-**Manage business goals, not pull requests.**
-
-|        | Step            | Example                                                            |
-| ------ | --------------- | ------------------------------------------------------------------ |
-| **01** | Define the goal | _"Build the #1 AI note-taking app to $1M MRR."_                    |
-| **02** | Hire the team   | CEO, CTO, engineers, designers, marketers — any bot, any provider. |
-| **03** | Approve and run | Review strategy. Set budgets. Hit go. Monitor from the dashboard.  |
-
-<br/>
-
-<div align="center">
-<table>
-  <tr>
-    <td align="center"><strong>Works<br/>with</strong></td>
-    <td align="center"><img src="doc/assets/logos/openclaw.svg" width="32" alt="OpenClaw" /><br/><sub>OpenClaw</sub></td>
-    <td align="center"><img src="doc/assets/logos/claude.svg" width="32" alt="Claude" /><br/><sub>Claude Code</sub></td>
-    <td align="center"><img src="doc/assets/logos/codex.svg" width="32" alt="Codex" /><br/><sub>Codex</sub></td>
-    <td align="center"><img src="doc/assets/logos/cursor.svg" width="32" alt="Cursor" /><br/><sub>Cursor</sub></td>
-    <td align="center"><img src="doc/assets/logos/bash.svg" width="32" alt="Bash" /><br/><sub>Bash</sub></td>
-    <td align="center"><img src="doc/assets/logos/http.svg" width="32" alt="HTTP" /><br/><sub>HTTP</sub></td>
-  </tr>
-</table>
-
-<em>If it can receive a heartbeat, it's hired.</em>
-
-</div>
-
-<br/>
-
-## Paperclip is right for you if
-
-- ✅ You want to build **autonomous AI companies**
-- ✅ You **coordinate many different agents** (OpenClaw, Codex, Claude, Cursor) toward a common goal
-- ✅ You have **20 simultaneous Claude Code terminals** open and lose track of what everyone is doing
-- ✅ You want agents running **autonomously 24/7**, but still want to audit work and chime in when needed
-- ✅ You want to **monitor costs** and enforce budgets
-- ✅ You want a process for managing agents that **feels like using a task manager**
-- ✅ You want to manage your autonomous businesses **from your phone**
-
-<br/>
-
-## Features
-
-<table>
-<tr>
-<td align="center" width="33%">
-<h3>🔌 Bring Your Own Agent</h3>
-Any agent, any runtime, one org chart. If it can receive a heartbeat, it's hired.
-</td>
-<td align="center" width="33%">
-<h3>🎯 Goal Alignment</h3>
-Every task traces back to the company mission. Agents know <em>what</em> to do and <em>why</em>.
-</td>
-<td align="center" width="33%">
-<h3>💓 Heartbeats</h3>
-Agents wake on a schedule, check work, and act. Delegation flows up and down the org chart.
-</td>
-</tr>
-<tr>
-<td align="center">
-<h3>💰 Cost Control</h3>
-Monthly budgets per agent. When they hit the limit, they stop. No runaway costs.
-</td>
-<td align="center">
-<h3>🏢 Multi-Company</h3>
-One deployment, many companies. Complete data isolation. One control plane for your portfolio.
-</td>
-<td align="center">
-<h3>🎫 Ticket System</h3>
-Every conversation traced. Every decision explained. Full tool-call tracing and immutable audit log.
-</td>
-</tr>
-<tr>
-<td align="center">
-<h3>🛡️ Governance</h3>
-Approve hires, override strategy, pause or terminate any agent — at any time.
-</td>
-<td align="center">
-<h3>📊 Org Chart</h3>
-Hierarchies, roles, reporting lines. Your agents have a boss, a title, and a job description.
-</td>
-<td align="center">
-<h3>📱 Mobile Ready</h3>
-Monitor and manage your autonomous businesses from anywhere.
-</td>
-</tr>
-</table>
-
-<br/>
-
-## Problems Paperclip solves
-
-| Without Paperclip                                                                                                                     | With Paperclip                                                                                                                         |
-| ------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| ❌ You have 20 Claude Code tabs open and can't track which one does what. On reboot you lose everything.                              | ✅ Tasks are ticket-based, conversations are threaded, sessions persist across reboots.                                                |
-| ❌ You manually gather context from several places to remind your bot what you're actually doing.                                     | ✅ Context flows from the task up through the project and company goals — your agent always knows what to do and why.                  |
-| ❌ Folders of agent configs are disorganized and you're re-inventing task management, communication, and coordination between agents. | ✅ Paperclip gives you org charts, ticketing, delegation, and governance out of the box — so you run a company, not a pile of scripts. |
-| ❌ Runaway loops waste hundreds of dollars of tokens and max your quota before you even know what happened.                           | ✅ Cost tracking surfaces token budgets and throttles agents when they're out. Management prioritizes with budgets.                    |
-| ❌ You have recurring jobs (customer support, social, reports) and have to remember to manually kick them off.                        | ✅ Heartbeats handle regular work on a schedule. Management supervises.                                                                |
-| ❌ You have an idea, you have to find your repo, fire up Claude Code, keep a tab open, and babysit it.                                | ✅ Add a task in Paperclip. Your coding agent works on it until it's done. Management reviews their work.                              |
-
-<br/>
-
-## Why Paperclip is special
-
-Paperclip handles the hard orchestration details correctly.
-
-|                                   |                                                                                                               |
-| --------------------------------- | ------------------------------------------------------------------------------------------------------------- |
-| **Atomic execution.**             | Task checkout and budget enforcement are atomic, so no double-work and no runaway spend.                      |
-| **Persistent agent state.**       | Agents resume the same task context across heartbeats instead of restarting from scratch.                     |
-| **Runtime skill injection.**      | Agents can learn Paperclip workflows and project context at runtime, without retraining.                      |
-| **Governance with rollback.**     | Approval gates are enforced, config changes are revisioned, and bad changes can be rolled back safely.        |
-| **Goal-aware execution.**         | Tasks carry full goal ancestry so agents consistently see the "why," not just a title.                        |
-| **Portable company templates.**   | Export/import orgs, agents, and skills with secret scrubbing and collision handling.                          |
-| **True multi-company isolation.** | Every entity is company-scoped, so one deployment can run many companies with separate data and audit trails. |
-
-<br/>
-
-## What's Under the Hood
-
-Paperclip is a full control plane, not a wrapper. Before you build any of this yourself, know that it already exists:
-
-```
-┌──────────────────────────────────────────────────────────────┐
-│                       PAPERCLIP SERVER                       │
-│                                                              │
-│  ┌───────────┐  ┌───────────┐  ┌───────────┐  ┌───────────┐  │
-│  │Identity & │  │  Work &   │  │ Heartbeat │  │Governance │  │
-│  │  Access   │  │   Tasks   │  │ Execution │  │& Approvals│  │
-│  └───────────┘  └───────────┘  └───────────┘  └───────────┘  │
-│                                                              │
-│  ┌───────────┐  ┌───────────┐  ┌───────────┐  ┌───────────┐  │
-│  │ Org Chart │  │Workspaces │  │  Plugins  │  │  Budget   │  │
-│  │ & Agents  │  │ & Runtime │  │           │  │ & Costs   │  │
-│  └───────────┘  └───────────┘  └───────────┘  └───────────┘  │
-│                                                              │
-│  ┌───────────┐  ┌───────────┐  ┌───────────┐  ┌───────────┐  │
-│  │ Routines  │  │ Secrets & │  │ Activity  │  │  Company  │  │
-│  │& Schedules│  │  Storage  │  │ & Events  │  │Portability│  │
-│  └───────────┘  └───────────┘  └───────────┘  └───────────┘  │
-└──────────────────────────────────────────────────────────────┘
-         ▲              ▲              ▲              ▲
-   ┌─────┴─────┐  ┌─────┴─────┐  ┌─────┴─────┐  ┌─────┴─────┐
-   │  Claude   │  │   Codex   │  │   CLI     │  │ HTTP/web  │
-   │   Code    │  │           │  │  agents   │  │   bots    │
-   └───────────┘  └───────────┘  └───────────┘  └───────────┘
-```
-
-### The Systems
-
-<table>
-<tr>
-<td width="50%">
-
-**Identity & Access** — Two deployment modes (trusted local or authenticated), board users, agent API keys, short-lived run JWTs, company memberships, invite flows, and OpenClaw onboarding. Every mutating request is traced to an actor.
-
-</td>
-<td width="50%">
-
-**Org Chart & Agents** — Agents have roles, titles, reporting lines, permissions, and budgets. Adapter examples match the diagram: Claude Code, Codex, CLI agents such as Cursor/Gemini/bash, HTTP/webhook bots such as OpenClaw, and external adapter plugins. If it can receive a heartbeat, it's hired.
-
-</td>
-</tr>
-<tr>
-<td>
-
-**Work & Task System** — Issues carry company/project/goal/parent links, atomic checkout with execution locks, first-class blocker dependencies, comments, documents, attachments, work products, labels, and inbox state. No double-work, no lost context.
-
-</td>
-<td>
-
-**Heartbeat Execution** — DB-backed wakeup queue with coalescing, budget checks, workspace resolution, secret injection, skill loading, and adapter invocation. Runs produce structured logs, cost events, session state, and audit trails. Recovery handles orphaned runs automatically.
-
-</td>
-</tr>
-<tr>
-<td>
-
-**Workspaces & Runtime** — Project workspaces, isolated execution workspaces (git worktrees, operator branches), and runtime services (dev servers, preview URLs). Agents work in the right directory with the right context every time.
-
-</td>
-<td>
-
-**Governance & Approvals** — Board approval workflows, execution policies with review/approval stages, decision tracking, budget hard-stops, agent pause/resume/terminate, and full audit logging. Nothing ships without your sign-off.
-
-</td>
-</tr>
-<tr>
-<td>
-
-**Budget & Cost Control** — Token and cost tracking by company, agent, project, goal, issue, provider, and model. Scoped budget policies with warning thresholds and hard stops. Overspend pauses agents and cancels queued work automatically.
-
-</td>
-<td>
-
-**Routines & Schedules** — Recurring tasks with cron, webhook, and API triggers. Concurrency and catch-up policies. Each routine execution creates a tracked issue and wakes the assigned agent — no manual kick-offs needed.
-
-</td>
-</tr>
-<tr>
-<td>
-
-**Plugins** — Instance-wide plugin system with out-of-process workers, capability-gated host services, job scheduling, tool exposure, and UI contributions. Extend Paperclip without forking it.
-
-</td>
-<td>
-
-**Secrets & Storage** — Instance and company secrets, encrypted local storage, provider-backed object storage, attachments, and work products. Sensitive values stay out of prompts unless a scoped run explicitly needs them.
-
-</td>
-</tr>
-<tr>
-<td>
-
-**Activity & Events** — Mutating actions, heartbeat state changes, cost events, approvals, comments, and work products are recorded as durable activity so operators can audit what happened and why.
-
-</td>
-<td>
-
-**Company Portability** — Export and import entire organizations — agents, skills, projects, routines, and issues — with secret scrubbing and collision handling. One deployment, many companies, complete data isolation.
-
-</td>
-</tr>
-</table>
-
-<br/>
-
-## What Paperclip is not
-
-|                              |                                                                                                                      |
-| ---------------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| **Not a chatbot.**           | Agents have jobs, not chat windows.                                                                                  |
-| **Not an agent framework.**  | We don't tell you how to build agents. We tell you how to run a company made of them.                                |
-| **Not a workflow builder.**  | No drag-and-drop pipelines. Paperclip models companies — with org charts, goals, budgets, and governance.            |
-| **Not a prompt manager.**    | Agents bring their own prompts, models, and runtimes. Paperclip manages the organization they work in.               |
-| **Not a single-agent tool.** | This is for teams. If you have one agent, you probably don't need Paperclip. If you have twenty — you definitely do. |
-| **Not a code review tool.**  | Paperclip orchestrates work, not pull requests. Bring your own review process.                                       |
-
-<br/>
-
-## Quickstart
-
-Open source. Self-hosted. No Paperclip account required.
-
-```bash
-npx paperclipai onboard --yes
-```
-
-That quickstart path now defaults to trusted local loopback mode for the fastest first run. To start in authenticated/private mode instead, choose a bind preset explicitly:
-
-```bash
-npx paperclipai onboard --yes --bind lan
-# or:
-npx paperclipai onboard --yes --bind tailnet
-```
-
-If you already have Paperclip configured, rerunning `onboard` keeps the existing config in place. Use `paperclipai configure` to edit settings.
-
-Or manually:
-
-```bash
-git clone https://github.com/paperclipai/paperclip.git
-cd paperclip
-pnpm install
-pnpm dev
-```
-
-This starts the API server at `http://localhost:3100`. An embedded PostgreSQL database is created automatically — no setup required.
-
-> **Requirements:** Node.js 20+, pnpm 9.15+
-
-<br/>
-
-## FAQ
-
-**What does a typical setup look like?**
-Locally, a single Node.js process manages an embedded Postgres and local file storage. For production, point it at your own Postgres and deploy however you like. Configure projects, agents, and goals — the agents take care of the rest.
-
-If you're a solo entrepreneur you can use Tailscale to access Paperclip on the go. Then later you can deploy to e.g. Vercel when you need it.
-
-**Can I run multiple companies?**
-Yes. A single deployment can run an unlimited number of companies with complete data isolation.
-
-**How is Paperclip different from agents like OpenClaw or Claude Code?**
-Paperclip _uses_ those agents. It orchestrates them into a company — with org charts, budgets, goals, governance, and accountability.
-
-**Why should I use Paperclip instead of just pointing my OpenClaw to Asana or Trello?**
-Agent orchestration has subtleties in how you coordinate who has work checked out, how to maintain sessions, monitoring costs, establishing governance - Paperclip does this for you.
-
-(Bring-your-own-ticket-system is on the Roadmap)
-
-**Do agents run continuously?**
-By default, agents run on scheduled heartbeats and event-based triggers (task assignment, @-mentions). You can also hook in continuous agents like OpenClaw. You bring your agent and Paperclip coordinates.
-
-<br/>
-
-## Development
-
-```bash
-pnpm dev              # Full dev (API + UI, watch mode)
-pnpm dev:once         # Full dev without file watching
-pnpm dev:server       # Server only
-pnpm build            # Build all
-pnpm typecheck        # Type checking
-pnpm test             # Cheap default test run (Vitest only)
-pnpm test:watch       # Vitest watch mode
-pnpm test:e2e         # Playwright browser suite
-pnpm db:generate      # Generate DB migration
-pnpm db:migrate       # Apply migrations
-```
-
-`pnpm test` does not run Playwright. Browser suites stay separate and are typically run only when working on those flows or in CI.
-
-See [doc/DEVELOPING.md](doc/DEVELOPING.md) for the full development guide.
-
-<br/>
-
-## Roadmap
-
-- ✅ Plugin system (e.g. add a knowledge base, custom tracing, queues, etc)
-- ✅ Get OpenClaw / claw-style agent employees
-- ✅ companies.sh - import and export entire organizations
-- ✅ Easy AGENTS.md configurations
-- ✅ Skills Manager
-- ✅ Scheduled Routines
-- ✅ Better Budgeting
-- ✅ Agent Reviews and Approvals
-- ✅ Multiple Human Users
-- ⚪ Cloud / Sandbox agents (e.g. Cursor / e2b agents)
-- ⚪ Artifacts & Work Products
-- ⚪ Memory / Knowledge
-- ⚪ Enforced Outcomes
-- ⚪ MAXIMIZER MODE
-- ⚪ Deep Planning
-- ⚪ Work Queues
-- ⚪ Self-Organization
-- ⚪ Automatic Organizational Learning
-- ⚪ CEO Chat
-- ⚪ Cloud deployments
-- ⚪ Desktop App
-
-This is the short roadmap preview. See the full roadmap in [ROADMAP.md](ROADMAP.md).
-
-<br/>
-
-## Community & Plugins
-
-Find Plugins and more at [awesome-paperclip](https://github.com/gsxdsm/awesome-paperclip)
-
-## Telemetry
-
-Paperclip collects anonymous usage telemetry to help us understand how the product is used and improve it. No personal information, issue content, prompts, file paths, or secrets are ever collected. Private repository references are hashed with a per-install salt before being sent.
-
-Telemetry is **enabled by default** and can be disabled with any of the following:
-
-| Method               | How                                                     |
-| -------------------- | ------------------------------------------------------- |
-| Environment variable | `PAPERCLIP_TELEMETRY_DISABLED=1`                        |
-| Standard convention  | `DO_NOT_TRACK=1`                                        |
-| CI environments      | Automatically disabled when `CI=true`                   |
-| Config file          | Set `telemetry.enabled: false` in your Paperclip config |
-
-## Contributing
-
-We welcome contributions. See the [contributing guide](CONTRIBUTING.md) for details.
-
-<br/>
-
-## Community
-
-- [Discord](https://discord.gg/m4HZY7xNG3) — Join the community
-- [Twitter / X](https://x.com/papercliping) — Follow updates and announcements
-- [GitHub Issues](https://github.com/paperclipai/paperclip/issues) — bugs and feature requests
-- [GitHub Discussions](https://github.com/paperclipai/paperclip/discussions) — ideas and RFC
-
-<br/>
-
-## License
-
-MIT &copy; 2026 [Paperclip Labs, Inc](https://paperclip.ing)
-
-## Star History
-
-[![Star History Chart](https://api.star-history.com/image?repos=paperclipai/paperclip&type=date&legend=top-left)](https://www.star-history.com/?repos=paperclipai%2Fpaperclip&type=date&legend=top-left)
-
-<br/>
 
 ---
 
-<p align="center">
-  <sub>Open source under MIT. Built for people who want to get work done, not babysit agents.</sub>
-</p>
+1. Project Structure
+
+```
+TimeForgeBooster/
+├── app/
+│   ├── build.gradle.kts
+│   ├── CMakeLists.txt
+│   └── src/
+│       └── main/
+│           ├── AndroidManifest.xml
+│           ├── cpp/
+│           │   ├── core.cpp          // NDK: coins, multipliers, security
+│           │   ├── jni_bridge.cpp    // JNI functions
+│           │   ├── integrity.cpp     // Anti-tamper & root detection
+│           │   ├── crypto_utils.cpp  // AES/RSA helpers
+│           │   └── headers/
+│           │       └── core.h
+│           ├── java/com/timeforge/booster/
+│           │   ├── App.kt
+│           │   ├── MainActivity.kt
+│           │   ├── di/               // Hilt modules
+│           │   ├── data/
+│           │   │   ├── local/
+│           │   │   │   ├── database/
+│           │   │   │   │   ├── AppDatabase.kt
+│           │   │   │   │   ├── dao/
+│           │   │   │   │   └── entity/
+│           │   │   │   ├── datastore/
+│           │   │   │   └── secure/   // Native coin storage
+│           │   │   └── repository/
+│           │   ├── domain/
+│           │   │   ├── model/
+│           │   │   └── usecase/
+│           │   ├── presentation/
+│           │   │   ├── navigation/
+│           │   │   ├── theme/
+│           │   │   ├── viewmodel/
+│           │   │   └── screens/
+│           │   │       ├── disclaimer/
+│           │   │       ├── home/
+│           │   │       ├── multiplier/
+│           │   │       ├── afk/
+│           │   │       ├── library/
+│           │   │       ├── stats/
+│           │   │       └── coinshop/
+│           │   ├── service/
+│           │   │   └── AfkForegroundService.kt
+│           │   ├── util/
+│           │   └── NativeLib.kt      // JNI interface
+│           └── res/
+│               ├── values/
+│               │   ├── strings.xml
+│               │   └── themes.xml
+│               ├── drawable/
+│               └── mipmap/
+├── build.gradle.kts (project)
+├── gradle.properties
+└── settings.gradle.kts
+```
+
+---
+
+2. Build Scripts & Config
+
+project/build.gradle.kts
+
+```kotlin
+plugins {
+    id("com.android.application") version "8.2.0" apply false
+    id("org.jetbrains.kotlin.android") version "1.9.20" apply false
+    id("com.google.dagger.hilt.android") version "2.48.1" apply false
+}
+```
+
+settings.gradle.kts
+
+```kotlin
+pluginManagement {
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+rootProject.name = "TimeForgeBooster"
+include(":app")
+```
+
+app/build.gradle.kts
+
+```kotlin
+plugins {
+    id("com.android.application")
+    id("org.jetbrains.kotlin.android")
+    id("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
+}
+
+android {
+    namespace = "com.timeforge.booster"
+    compileSdk = 34
+
+    defaultConfig {
+        applicationId = "com.timeforge.booster"
+        minSdk = 26
+        targetSdk = 34
+        versionCode = 1
+        versionName = "1.0.0"
+
+        ndk {
+            abiFilters += listOf("arm64-v8a", "armeabi-v7a", "x86_64", "x86")
+        }
+
+        externalNativeBuild {
+            cmake {
+                arguments += listOf("-DANDROID_STL=c++_shared")
+            }
+        }
+    }
+
+    signingConfigs {
+        create("release") {
+            // Store keystore info in local.properties or env
+        }
+    }
+
+    buildTypes {
+        release {
+            isMinifyEnabled = true
+            isShrinkResources = true
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            signingConfig = signingConfigs.getByName("release")
+            ndk {
+                debugSymbolLevel = "none"
+            }
+        }
+        debug {
+            isDebuggable = false // still enable native security checks in debug for testing
+        }
+    }
+
+    externalNativeBuild {
+        cmake {
+            path = file("src/main/cpp/CMakeLists.txt")
+            version = "3.22.1"
+        }
+    }
+
+    buildFeatures {
+        compose = true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.5"
+    }
+
+    packagingOptions {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        }
+    }
+}
+
+dependencies {
+    val composeBom = platform("androidx.compose:compose-bom:2024.02.00")
+    implementation(composeBom)
+    implementation("androidx.compose.ui:ui")
+    implementation("androidx.compose.material3:material3")
+    implementation("androidx.compose.ui:ui-tooling-preview")
+    implementation("androidx.compose.material:material-icons-extended")
+    implementation("androidx.activity:activity-compose:1.8.2")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.7.0")
+    implementation("androidx.navigation:navigation-compose:2.7.7")
+    implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
+
+    // Hilt DI
+    implementation("com.google.dagger:hilt-android:2.48.1")
+    kapt("com.google.dagger:hilt-android-compiler:2.48.1")
+
+    // Room
+    implementation("androidx.room:room-runtime:2.6.1")
+    implementation("androidx.room:room-ktx:2.6.1")
+    kapt("androidx.room:room-compiler:2.6.1")
+
+    // Security Crypto (for DataStore encryption)
+    implementation("androidx.security:security-crypto:1.1.0-alpha06")
+
+    // DataStore (preferences)
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
+
+    // AdMob
+    implementation("com.google.android.gms:play-services-ads:22.6.0")
+
+    // Play Integrity
+    implementation("com.google.android.gms:play-services-integrity:1.2.0")
+
+    // WorkManager
+    implementation("androidx.work:work-runtime-ktx:2.9.0")
+    implementation("androidx.hilt:hilt-work:1.1.0")
+    kapt("androidx.hilt:hilt-compiler:1.1.0")
+
+    // Foreground service
+    implementation("androidx.core:core-ktx:1.12.0")
+}
+```
+
+app/CMakeLists.txt (in cpp folder)
+
+```cmake
+cmake_minimum_required(VERSION 3.22.1)
+project("timeforge_native")
+
+add_library(timeforge_native SHARED
+    core.cpp
+    jni_bridge.cpp
+    integrity.cpp
+    crypto_utils.cpp
+)
+
+target_include_directories(timeforge_native PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/headers)
+
+# Optimization and stripping
+target_compile_options(timeforge_native PRIVATE -O2 -fvisibility=hidden -ffunction-sections -fdata-sections)
+target_link_options(timeforge_native PRIVATE -Wl,--gc-sections -Wl,--strip-all)
+```
+
+---
+
+3. Native C++ Core (Military‑Grade Security)
+
+cpp/headers/core.h
+
+```cpp
+#ifndef TIMEFORGE_CORE_H
+#define TIMEFORGE_CORE_H
+
+#include <jni.h>
+#include <string>
+
+// Coin system
+int64_t getCoinBalanceNative(JNIEnv* env, jobject context);
+bool addCoinsNative(JNIEnv* env, jobject context, int amount, const char* verificationToken);
+bool spendCoinsNative(JNIEnv* env, jobject context, int amount);
+
+// Multiplier logic (cost calculation, session limits)
+int calculateMultiplierCost(int multiplier, int hours);
+bool canActivateMultiplier(int multiplier, int hours, int64_t coinBalance);
+
+// Integrity checks
+bool performIntegrityCheck(JNIEnv* env, jobject context);
+bool isDeviceCompromisedNative(JNIEnv* env);
+
+// AFK session tracking (native background verification)
+bool startAfkSessionNative(int gameId, int multiplier, int hours);
+bool stopAfkSessionNative();
+
+// Utility
+std::string getEncryptedDeviceId(JNIEnv* env, jobject context);
+
+#endif
+```
+
+cpp/core.cpp
+
+```cpp
+#include "core.h"
+#include "crypto_utils.h"
+#include <android/log.h>
+#include <mutex>
+#include <fstream>
+#include <cstring>
+
+#define LOG_TAG "TimeForgeNative"
+#define LOGE(...) __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, __VA_ARGS__)
+
+static std::mutex coinMutex;
+static int64_t cachedCoinBalance = -1; // -1 means not loaded
+
+extern "C" JNIEXPORT jint JNICALL
+Java_com_timeforge_booster_NativeLib_getCoinBalance(JNIEnv* env, jclass, jobject context) {
+    return (jint)getCoinBalanceNative(env, context);
+}
+
+extern "C" JNIEXPORT jboolean JNICALL
+Java_com_timeforge_booster_NativeLib_addCoins(JNIEnv* env, jclass, jobject context, jint amount, jstring verificationToken) {
+    const char* token = env->GetStringUTFChars(verificationToken, nullptr);
+    bool result = addCoinsNative(env, context, amount, token);
+    env->ReleaseStringUTFChars(verificationToken, token);
+    return result;
+}
+
+extern "C" JNIEXPORT jboolean JNICALL
+Java_com_timeforge_booster_NativeLib_spendCoins(JNIEnv* env, jclass, jobject context, jint amount) {
+    return spendCoinsNative(env, context, amount);
+}
+
+extern "C" JNIEXPORT jint JNICALL
+Java_com_timeforge_booster_NativeLib_calculateMultiplierCost(JNIEnv*, jclass, jint multiplier, jint hours) {
+    return calculateMultiplierCost(multiplier, hours);
+}
+
+extern "C" JNIEXPORT jboolean JNICALL
+Java_com_timeforge_booster_NativeLib_canActivateMultiplier(JNIEnv* env, jclass, jobject context, jint multiplier, jint hours) {
+    int64_t bal = getCoinBalanceNative(env, context);
+    return canActivateMultiplier(multiplier, hours, bal);
+}
+
+extern "C" JNIEXPORT jboolean JNICALL
+Java_com_timeforge_booster_NativeLib_isDeviceCompromised(JNIEnv* env, jclass) {
+    return isDeviceCompromisedNative(env);
+}
+
+extern "C" JNIEXPORT jboolean JNICALL
+Java_com_timeforge_booster_NativeLib_performIntegrityCheck(JNIEnv* env, jclass, jobject context) {
+    return performIntegrityCheck(env, context);
+}
+
+// Implementation
+
+int64_t getCoinBalanceNative(JNIEnv* env, jobject context) {
+    std::lock_guard<std::mutex> lock(coinMutex);
+    if (cachedCoinBalance >= 0) return cachedCoinBalance;
+    // Load from encrypted file (CryptoUtils decrypts using device-specific key)
+    std::string encrypted = readEncryptedFile(env, context, "coin_balance.dat");
+    if (encrypted.empty()) {
+        cachedCoinBalance = 0;
+        return 0;
+    }
+    cachedCoinBalance = std::stoll(encrypted);
+    return cachedCoinBalance;
+}
+
+bool addCoinsNative(JNIEnv* env, jobject context, int amount, const char* verificationToken) {
+    // 1. Server-side verification (mock: check token signature)
+    if (!verifyAdRewardToken(verificationToken)) {
+        LOGE("Invalid ad reward token");
+        return false;
+    }
+    std::lock_guard<std::mutex> lock(coinMutex);
+    int64_t current = getCoinBalanceNative(env, context);
+    current += amount;
+    cachedCoinBalance = current;
+    // Persist encrypted
+    std::string balanceStr = std::to_string(current);
+    writeEncryptedFile(env, context, "coin_balance.dat", balanceStr);
+    return true;
+}
+
+bool spendCoinsNative(JNIEnv* env, jobject context, int amount) {
+    std::lock_guard<std::mutex> lock(coinMutex);
+    int64_t current = getCoinBalanceNative(env, context);
+    if (current < amount) return false;
+    current -= amount;
+    cachedCoinBalance = current;
+    writeEncryptedFile(env, context, "coin_balance.dat", std::to_string(current));
+    return true;
+}
+
+int calculateMultiplierCost(int multiplier, int hours) {
+    // Example cost formula: base cost 5 coins per hour for 2x, increasing with multiplier and hours
+    // 1x = always 0 coins (free)
+    if (multiplier <= 1) return 0;
+    double base = 5.0;
+    double multFactor = (multiplier - 1) * 0.8; // 2x = 0.8, 30x = 23.2
+    double hourFactor = hours * 1.2;
+    return static_cast<int>(base * multFactor * hourFactor) + 1; // ensure >0
+}
+
+bool canActivateMultiplier(int multiplier, int hours, int64_t coinBalance) {
+    int cost = calculateMultiplierCost(multiplier, hours);
+    return coinBalance >= cost;
+}
+
+// Integrity and anti-tamper (detailed in integrity.cpp)
+```
+
+cpp/integrity.cpp
+
+```cpp
+#include "core.h"
+#include <jni.h>
+#include <string>
+#include <sys/stat.h>
+#include <unistd.h>
+#include <fstream>
+#include <android/log.h>
+
+#define LOG_TAG "Integrity"
+#define LOGE(...) __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, __VA_ARGS__)
+
+// Root detection
+static bool checkForRoot() {
+    const char* rootPaths[] = {
+        "/system/app/Superuser.apk",
+        "/sbin/su",
+        "/system/bin/su",
+        "/system/xbin/su",
+        "/data/local/xbin/su",
+        "/data/local/bin/su",
+        "/system/sd/xbin/su",
+        "/system/bin/failsafe/su",
+        "/data/local/su"
+    };
+    for (const char* path : rootPaths) {
+        if (access(path, F_OK) == 0) return true;
+    }
+    return false;
+}
+
+// Frida detection
+static bool isFridaRunning() {
+    std::ifstream maps("/proc/self/maps");
+    std::string line;
+    while (std::getline(maps, line)) {
+        if (line.find("frida") != std::string::npos ||
+            line.find("gum-js-loop") != std::string::npos ||
+            line.find("linjector") != std::string::npos) {
+            return true;
+        }
+    }
+    return false;
+}
+
+// Debugger detection
+static bool isDebuggerAttached() {
+    std::ifstream status("/proc/self/status");
+    std::string line;
+    while (std::getline(status, line)) {
+        if (line.find("TracerPid:") != std::string::npos) {
+            long tracerPid = std::stol(line.substr(line.find(":") + 1));
+            if (tracerPid != 0) return true;
+        }
+    }
+    return false;
+}
+
+extern "C" bool isDeviceCompromisedNative(JNIEnv* env) {
+    // Multiple checks
+    if (checkForRoot()) {
+        LOGE("Root detected");
+        return true;
+    }
+    if (isFridaRunning()) {
+        LOGE("Frida injection detected");
+        return true;
+    }
+    if (isDebuggerAttached()) {
+        LOGE("Debugger attached");
+        return true;
+    }
+    // Check for emulator (simple)
+    char* qemu = getenv("ANDROID_EMULATOR");
+    if (qemu != nullptr) return true;
+    return false;
+}
+
+// APK signature check using Java interop (simplified, real check uses PackageManager)
+extern "C" bool performIntegrityCheck(JNIEnv* env, jobject context) {
+    // Call Java method to verify Play Integrity and APK signature via C++ JNI
+    jclass cls = env->GetObjectClass(context);
+    jmethodID mid = env->GetMethodID(cls, "verifyPlayIntegrity", "()Z");
+    if (mid == nullptr) return false;
+    jboolean result = env->CallBooleanMethod(context, mid);
+    return result;
+}
+```
+
+cpp/crypto_utils.cpp (abbreviated)
+
+```cpp
+#include <string>
+#include <jni.h>
+// Use Android keystore-backed AES encryption for file storage.
+// Implementation uses JNI to call Java KeyStore.
+std::string readEncryptedFile(JNIEnv* env, jobject context, const std::string& filename) { /* ... */ }
+void writeEncryptedFile(JNIEnv* env, jobject context, const std::string& filename, const std::string& data) { /* ... */ }
+bool verifyAdRewardToken(const char* token) { /* validate with server public key */ return true; }
+```
+
+cpp/jni_bridge.cpp (includes all JNI registrations)
+
+```cpp
+#include <jni.h>
+#include "core.h"
+
+extern "C" {
+    JNIEXPORT jint JNICALL Java_com_timeforge_booster_NativeLib_getCoinBalance(JNIEnv*, jclass, jobject);
+    JNIEXPORT jboolean JNICALL Java_com_timeforge_booster_NativeLib_addCoins(JNIEnv*, jclass, jobject, jint, jstring);
+    JNIEXPORT jboolean JNICALL Java_com_timeforge_booster_NativeLib_spendCoins(JNIEnv*, jclass, jobject, jint);
+    JNIEXPORT jint JNICALL Java_com_timeforge_booster_NativeLib_calculateMultiplierCost(JNIEnv*, jclass, jint, jint);
+    JNIEXPORT jboolean JNICALL Java_com_timeforge_booster_NativeLib_canActivateMultiplier(JNIEnv*, jclass, jobject, jint, jint);
+    JNIEXPORT jboolean JNICALL Java_com_timeforge_booster_NativeLib_isDeviceCompromised(JNIEnv*, jclass);
+    JNIEXPORT jboolean JNICALL Java_com_timeforge_booster_NativeLib_performIntegrityCheck(JNIEnv*, jclass, jobject);
+}
+```
+
+---
+
+4. Android Manifest
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:name=".App"
+        android:allowBackup="false"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.TimeForgeBooster"
+        android:usesCleartextTraffic="false">
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:theme="@style/Theme.TimeForgeBooster">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <service
+            android:name=".service.AfkForegroundService"
+            android:foregroundServiceType="specialUse"
+            android:exported="false" />
+
+        <!-- AdMob meta-data -->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-xxxxxxxx~yyyyyyyy" />
+    </application>
+</manifest>
+```
+
+---
+
+5. Kotlin/Java Source Files
+
+App.kt (Application class)
+
+```kotlin
+package com.timeforge.booster
+
+import android.app.Application
+import dagger.hilt.android.HiltAndroidApp
+import timber.log.Timber
+import com.google.android.gms.ads.MobileAds
+
+@HiltAndroidApp
+class App : Application() {
+    companion object {
+        lateinit var instance: App
+    }
+
+    override fun onCreate() {
+        super.onCreate()
+        instance = this
+        Timber.plant(Timber.DebugTree())
+        MobileAds.initialize(this) {}
+
+        // Load native library
+        System.loadLibrary("timeforge_native")
+        // Run initial integrity checks
+        if (NativeLib.isDeviceCompromised()) {
+            // Exit or show message
+            throw SecurityException("Device integrity compromised")
+        }
+    }
+}
+```
+
+MainActivity.kt
+
+```kotlin
+package com.timeforge.booster
+
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.ui.Modifier
+import com.timeforge.booster.presentation.navigation.NavGraph
+import com.timeforge.booster.presentation.theme.TimeForgeBoosterTheme
+import com.timeforge.booster.presentation.viewmodel.OnboardingViewModel
+import dagger.hilt.android.AndroidEntryPoint
+
+@AndroidEntryPoint
+class MainActivity : ComponentActivity() {
+    private val onboardingViewModel: OnboardingViewModel by viewModels()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        // Verify Play Integrity on each launch
+        if (!NativeLib.performIntegrityCheck(this)) {
+            finishAffinity()
+            return
+        }
+        setContent {
+            TimeForgeBoosterTheme {
+                Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
+                    NavGraph(onboardingViewModel = onboardingViewModel)
+                }
+            }
+        }
+    }
+}
+```
+
+NativeLib.kt (JNI interface)
+
+```kotlin
+package com.timeforge.booster
+
+object NativeLib {
+    init {
+        System.loadLibrary("timeforge_native")
+    }
+
+    external fun getCoinBalance(): Int
+    external fun addCoins(amount: Int, verificationToken: String): Boolean
+    external fun spendCoins(amount: Int): Boolean
+    external fun calculateMultiplierCost(multiplier: Int, hours: Int): Int
+    external fun canActivateMultiplier(multiplier: Int, hours: Int): Boolean
+    external fun isDeviceCompromised(): Boolean
+    external fun performIntegrityCheck(context: Any): Boolean
+}
+```
+
+OnboardingViewModel.kt (and Disclaimer screen)
+
+```kotlin
+package com.timeforge.booster.presentation.viewmodel
+
+import androidx.lifecycle.ViewModel
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
+
+@HiltViewModel
+class OnboardingViewModel @Inject constructor() : ViewModel() {
+    var disclaimerAccepted by mutableStateOf(false)
+        private set
+
+    fun acceptDisclaimer() {
+        disclaimerAccepted = true
+        // Save timestamp and device hash in DataStore
+    }
+}
+```
+
+DisclaimerScreen.kt (full screen with mandatory checkbox)
+
+```kotlin
+package com.timeforge.booster.presentation.screens.disclaimer
+
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+
+@Composable
+fun DisclaimerScreen(
+    onAccept: () -> Unit
+) {
+    var checked by remember { mutableStateOf(false) }
+    val scrollState = rememberScrollState()
+
+    Column(
+        modifier = Modifier.fillMaxSize().padding(16.dp).verticalScroll(scrollState),
+        verticalArrangement = Arrangement.spacedBy(12.dp)
+    ) {
+        Text(
+            "⚠️ IRREVOCABLE ULTIMATE LIABILITY DISCLAIMER, RELEASE, AND INDEMNIFICATION AGREEMENT ⚠️",
+            fontWeight = FontWeight.Bold,
+            fontSize = 20.sp,
+            color = MaterialTheme.colorScheme.error
+        )
+        // Insert the entire disclaimer text here (long string from spec)
+        Text(fullDisclaimerText, fontSize = 12.sp)
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Checkbox(checked = checked, onCheckedChange = { checked = it })
+            Text(
+                "I have read, fully understood, and irrevocably agree to all terms above.",
+                modifier = Modifier.weight(1f)
+            )
+        }
+
+        Button(
+            onClick = onAccept,
+            enabled = checked,
+            modifier = Modifier.align(Alignment.End)
+        ) {
+            Text("Continue")
+        }
+    }
+}
+
+val fullDisclaimerText = """
+THIS APPLICATION, TIMEFORGE BOOSTER (THE "APP"), IS FURNISHED STRICTLY "AS IS," "AS AVAILABLE," AND "WITH ALL FAULTS" WITHOUT ANY WARRANTY OR RECOURSE WHATSOEVER. YOUR ACCESS, DOWNLOAD, INSTALLATION, AND USE OF THE APP IS VOLUNTARY AND CARRIES INHERENT, SUBSTANTIAL, AND IRREVERSIBLE RISKS...
+[Full text from spec truncated for brevity – insert entire spec text]
+""".trimIndent()
+```
+
+Navigation (NavGraph.kt)
+
+```kotlin
+package com.timeforge.booster.presentation.navigation
+
+import androidx.compose.runtime.Composable
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import com.timeforge.booster.presentation.screens.disclaimer.DisclaimerScreen
+import com.timeforge.booster.presentation.screens.home.HomeScreen
+import com.timeforge.booster.presentation.viewmodel.OnboardingViewModel
+
+@Composable
+fun NavGraph(onboardingViewModel: OnboardingViewModel) {
+    val navController = androidx.navigation.compose.rememberNavController()
+
+    NavHost(navController = navController, startDestination = if (onboardingViewModel.disclaimerAccepted) "home" else "disclaimer") {
+        composable("disclaimer") {
+            DisclaimerScreen(onAccept = {
+                onboardingViewModel.acceptDisclaimer()
+                navController.navigate("home") {
+                    popUpTo("disclaimer") { inclusive = true }
+                }
+            })
+        }
+        composable("home") { HomeScreen(navController) }
+        composable("multiplier") { /* MultiplierScreen */ }
+        composable("afk") { /* AfkScreen */ }
+        composable("library") { /* LibraryScreen */ }
+        composable("coinshop") { /* CoinShopScreen */ }
+    }
+}
+```
+
+HomeScreen.kt (displays coin balance and ad button)
+
+```kotlin
+@Composable
+fun HomeScreen(navController: NavController) {
+    val coinBalance by viewModel.coinBalance.collectAsState() // from HomeViewModel
+    Column {
+        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+            Text("Coins: $coinBalance")
+            Button(onClick = { viewModel.showRewardedAd() }) { Text("Watch Ad +1 Coin") }
+        }
+        // Navigation to multipliers, AFK, etc.
+        Button(onClick = { navController.navigate("multiplier") }) { Text("Multipliers") }
+        // ...
+    }
+}
+```
+
+Data Layer: Room entities, DAO, Database (sketched)
+
+```kotlin
+@Entity(tableName = "games")
+data class GameEntity(
+    @PrimaryKey val id: String,
+    val name: String,
+    val packageName: String?,
+    val isIdle: Boolean
+)
+
+@Entity(tableName = "coin_transactions")
+data class CoinTransaction(
+    @PrimaryKey val id: String,
+    val amount: Int,
+    val source: String, // "ad"
+    val timestamp: Long,
+    val verified: Boolean
+)
+
+@Dao
+interface CoinTransactionDao {
+    @Insert
+    suspend fun insert(transaction: CoinTransaction)
+}
+```
+
+Repository (CoinRepository)
+
+```kotlin
+class CoinRepository @Inject constructor(
+    private val nativeLib: NativeLib, // JNI wrapper
+    private val coinTransactionDao: CoinTransactionDao
+) {
+    fun getBalance(): Int = nativeLib.getCoinBalance()
+
+    suspend fun addCoins(amount: Int, verificationToken: String): Boolean {
+        if (nativeLib.addCoins(amount, verificationToken)) {
+            coinTransactionDao.insert(CoinTransaction(UUID.randomUUID().toString(), amount, "ad", System.currentTimeMillis(), true))
+            return true
+        }
+        return false
+    }
+
+    suspend fun spendCoins(amount: Int): Boolean = nativeLib.spendCoins(amount)
+}
+```
+
+AdMob Rewarded Ad Helper
+
+```kotlin
+@Singleton
+class AdRewardManager @Inject constructor(
+    @ApplicationContext private val context: Context,
+    private val coinRepository: CoinRepository
+) {
+    private var rewardedAd: RewardedAd? = null
+
+    fun loadAd(activity: Activity) {
+        val adRequest = AdRequest.Builder().build()
+        RewardedAd.load(context, "ca-app-pub-3940256099942544/5224354917", adRequest, object : RewardedAdLoadCallback() {
+            override fun onAdLoaded(ad: RewardedAd) { rewardedAd = ad }
+            override fun onAdFailedToLoad(error: LoadAdError) { }
+        })
+    }
+
+    fun showAd(activity: Activity, onUserEarnedReward: () -> Unit) {
+        rewardedAd?.let { ad ->
+            ad.fullScreenContentCallback = object : FullScreenContentCallback() {
+                override fun onAdDismissedFullScreenContent() { loadAd(activity) }
+            }
+            ad.show(activity) { rewardItem ->
+                // SSV token from server
+                val verificationToken = ad.responseInfo?.responseId ?: ""
+                viewModelScope.launch {
+                    coinRepository.addCoins(1, verificationToken)
+                    onUserEarnedReward()
+                }
+            }
+        } ?: run { loadAd(activity) }
+    }
+}
+```
+
+Foreground Service for AFK (AFKForegroundService.kt)
+
+```kotlin
+@AndroidEntryPoint
+class AfkForegroundService : Service() {
+    // Uses native calls to start session, monitors time, etc.
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        // startForeground with notification
+        // NativeLib.startAfkSession(...)
+        return START_STICKY
+    }
+}
+```
+
+---
+
+6. Security & Obfuscation
+
+· ProGuard rules (proguard-rules.pro):
+
+```
+-keep class com.timeforge.booster.NativeLib { *; }
+-keepclasseswithmembernames class * { native <methods>; }
+# Aggressive obfuscation for everything else.
+-allowaccessmodification
+-repackageclasses
+-overloadaggressively
+```
+
+·  
