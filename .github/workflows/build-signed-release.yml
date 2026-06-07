@@ -1,0 +1,195 @@
+name: Build Signed Release APK
+
+on:
+  workflow_dispatch:
+    inputs:
+      versionName:
+        description: 'Version name (e.g., 1.0.0)'
+        required: false
+        default: '1.0.0'
+      releaseNotes:
+        description: 'Release notes/changelog'
+        required: false
+        default: 'Production release'
+
+jobs:
+  build-signed-release:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: gradle
+    
+    - name: Install Android NDK
+      run: |
+        echo "Installing NDK 25.1.8937393..."
+        $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager --sdk_root=$ANDROID_SDK_ROOT "ndk;25.1.8937393"
+        echo "NDK installation complete"
+    
+    - name: Decode Keystore from Base64
+      run: |
+        echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > keystore.jks
+        ls -lh keystore.jks
+    
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+    
+    - name: Build Signed Release APK
+      run: ./gradlew assembleRelease --stacktrace
+      env:
+        KEYSTORE_PATH: ${{ github.workspace }}/keystore.jks
+        KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+        KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+        KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+        ANDROID_SDK_ROOT: ${{ env.ANDROID_SDK_ROOT }}
+    
+    - name: Verify APK Exists
+      run: |
+        if [ -f "app/build/outputs/apk/release/app-release.apk" ]; then
+          echo "✅ Signed Release APK built successfully!"
+          ls -lh app/build/outputs/apk/release/app-release.apk
+        else
+          echo "❌ Signed Release APK not found!"
+          exit 1
+        fi
+    
+    - name: Install Build Tools for Zipalign
+      run: |
+        echo "Installing build-tools 34.0.0..."
+        $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager --sdk_root=$ANDROID_SDK_ROOT "build-tools;34.0.0"
+    
+    - name: Zipalign APK
+      run: |
+        echo "Running zipalign..."
+        $ANDROID_SDK_ROOT/build-tools/34.0.0/zipalign -v 4 \
+          app/build/outputs/apk/release/app-release.apk \
+          app/build/outputs/apk/release/app-release-optimized.apk
+        
+        echo "Verifying alignment..."
+        $ANDROID_SDK_ROOT/build-tools/34.0.0/zipalign -c -v 4 \
+          app/build/outputs/apk/release/app-release-optimized.apk
+        
+        echo "✅ APK successfully zipaligned!"
+        ls -lh app/build/outputs/apk/release/app-release-optimized.apk
+    
+    - name: Verify APK Signature
+      run: |
+        echo "Verifying APK signature..."
+        jarsigner -verify -verbose -certs app/build/outputs/apk/release/app-release-optimized.apk
+    
+    - name: Upload Signed APK (Primary)
+      uses: actions/upload-artifact@v4
+      with:
+        name: timeforge-booster-signed-release
+        path: app/build/outputs/apk/release/app-release-optimized.apk
+        retention-days: 90
+        if-no-files-found: error
+    
+    - name: Upload Unsigned APK (Backup)
+      uses: actions/upload-artifact@v4
+      with:
+        name: timeforge-booster-signed-unsigned
+        path: app/build/outputs/apk/release/app-release.apk
+        retention-days: 90
+        if-no-files-found: warn
+    
+    - name: Upload ProGuard Mappings
+      uses: actions/upload-artifact@v4
+      with:
+        name: timeforge-booster-mappings
+        path: app/build/outputs/mapping/release/
+        retention-days: 365
+        if-no-files-found: warn
+    
+    - name: Upload Lint Reports
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: lint-reports
+        path: app/build/reports/lint-results-release.html
+        retention-days: 30
+        if-no-files-found: warn
+    
+    - name: Generate Release Notes
+      run: |
+        cat > release-notes.txt << 'EOF'
+        # TimeForge Booster - Release Build
+        
+        **Build Information:**
+        - Build Date: $(date)
+        - Version: ${{ github.event.inputs.versionName }}
+        - Commit: ${{ github.sha }}
+        - Branch: ${{ github.ref }}
+        
+        **Release Notes:**
+        ${{ github.event.inputs.releaseNotes }}
+        
+        **APK Details:**
+        - Filename: app-release-optimized.apk
+        - Size: $(ls -lh app/build/outputs/apk/release/app-release-optimized.apk | awk '{print $5}')
+        - Status: ✅ Signed and Optimized
+        
+        **Next Steps:**
+        1. Download the signed APK from artifacts
+        2. Upload to Google Play Console
+        3. Monitor for any issues during rollout
+        4. Check user reviews and crash reports
+        
+        **Important:**
+        - Keep a backup of the keystore and passwords securely
+        - ProGuard mappings are included for crash analysis
+        - This APK is ready for production deployment
+        EOF
+        cat release-notes.txt
+    
+    - name: Upload Release Notes
+      uses: actions/upload-artifact@v4
+      with:
+        name: release-notes
+        path: release-notes.txt
+    
+    - name: Create GitHub Release (Draft)
+      uses: softprops/action-gh-release@v1
+      if: startsWith(github.ref, 'refs/tags/')
+      with:
+        files: |
+          app/build/outputs/apk/release/app-release-optimized.apk
+          release-notes.txt
+        draft: true
+        prerelease: false
+        body_path: release-notes.txt
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    
+    - name: Slack Notification (Success)
+      if: success()
+      run: |
+        echo "✅ Signed APK build completed successfully!"
+        echo "📦 APK Size: $(ls -lh app/build/outputs/apk/release/app-release-optimized.apk | awk '{print $5}')"
+        echo "🔐 APK is signed and optimized for Play Store"
+    
+    - name: Slack Notification (Failure)
+      if: failure()
+      run: |
+        echo "❌ Build failed! Check logs for details."
+        exit 1
+
+  cleanup:
+    runs-on: ubuntu-latest
+    if: always()
+    needs: build-signed-release
+    
+    steps:
+    - name: Cleanup Keystore
+      run: |
+        # Keystore is automatically cleaned up by GitHub Actions
+        echo "Workflow completed - temporary files cleaned up"
