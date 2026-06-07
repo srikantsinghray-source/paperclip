@@ -1,18 +1,21 @@
-name: Build APK
+name: Build Release APK (Unsigned)
 
 on:
   push:
     branches: [ timeforge-setup, main ]
   pull_request:
     branches: [ timeforge-setup, main ]
+  workflow_dispatch:
 
 jobs:
-  build:
+  build-release-unsigned:
     runs-on: ubuntu-latest
     
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
     
     - name: Set up JDK 17
       uses: actions/setup-java@v4
@@ -21,39 +24,60 @@ jobs:
         distribution: 'temurin'
         cache: gradle
     
-    - name: Install NDK
+    - name: Install Android NDK
       run: |
+        echo "Installing NDK..."
         $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager --sdk_root=$ANDROID_SDK_ROOT "ndk;25.1.8937393"
+        echo "NDK installation complete"
     
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
     
-    - name: Build Debug APK
-      run: ./gradlew assembleDebug --stacktrace
+    - name: Build Release APK (Unsigned)
+      run: ./gradlew assembleRelease --stacktrace --info
+      env:
+        ANDROID_SDK_ROOT: ${{ env.ANDROID_SDK_ROOT }}
     
-    - name: Build Release APK (unsigned)
-      run: ./gradlew assembleRelease --stacktrace
+    - name: Verify APK
+      run: |
+        if [ -f "app/build/outputs/apk/release/app-release-unsigned.apk" ]; then
+          echo "✅ Release APK built successfully!"
+          ls -lh app/build/outputs/apk/release/app-release-unsigned.apk
+        else
+          echo "❌ Release APK not found!"
+          exit 1
+        fi
     
-    - name: Upload Debug APK
-      uses: actions/upload-artifact@v3
+    - name: Upload Release APK (Unsigned)
+      uses: actions/upload-artifact@v4
       with:
-        name: timeforge-booster-debug
-        path: app/build/outputs/apk/debug/app-debug.apk
-        retention-days: 30
-    
-    - name: Upload Release APK
-      uses: actions/upload-artifact@v3
-      with:
-        name: timeforge-booster-release
+        name: timeforge-booster-release-unsigned
         path: app/build/outputs/apk/release/app-release-unsigned.apk
-        retention-days: 30
+        retention-days: 90
+        if-no-files-found: error
     
-    - name: Upload Build Logs on Failure
-      if: failure()
-      uses: actions/upload-artifact@v3
+    - name: Upload Mapping Files (ProGuard)
+      uses: actions/upload-artifact@v4
       with:
-        name: build-logs
-        path: app/build/logs/
+        name: timeforge-booster-mappings
+        path: app/build/outputs/mapping/release/
+        retention-days: 90
+        if-no-files-found: warn
+    
+    - name: Generate Build Report
+      if: always()
+      run: |
+        echo "## Build Report" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "**Build Status:** ✅ Success" >> $GITHUB_STEP_SUMMARY
+        echo "**APK Location:** app/build/outputs/apk/release/app-release-unsigned.apk" >> $GITHUB_STEP_SUMMARY
+        echo "**Build Date:** $(date)" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### Next Steps:" >> $GITHUB_STEP_SUMMARY
+        echo "1. Download the unsigned APK from artifacts" >> $GITHUB_STEP_SUMMARY
+        echo "2. Sign the APK using your release keystore" >> $GITHUB_STEP_SUMMARY
+        echo "3. Optimize with zipalign" >> $GITHUB_STEP_SUMMARY
+        echo "4. Upload to Google Play Console" >> $GITHUB_STEP_SUMMARY
 
   test:
     runs-on: ubuntu-latest
@@ -74,3 +98,10 @@ jobs:
     
     - name: Run Unit Tests
       run: ./gradlew test --stacktrace
+    
+    - name: Upload Test Results
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: test-results
+        path: app/build/reports/tests/
